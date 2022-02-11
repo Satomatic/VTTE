@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(QtProject VERSION 0.1 LANGUAGES CXX)
+project(vtte VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -43,30 +43,30 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(QtProject WIN32
+    qt_add_executable(vtte WIN32
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 else()
     if(ANDROID)
-        add_library(QtProject SHARED
+        add_library(vtte SHARED
             ${PROJECT_SOURCES}
         )
     else()
-        add_executable(QtProject WIN32
+        add_executable(vtte WIN32
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(QtProject PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(vtte PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-set_target_properties(QtProject PROPERTIES
+set_target_properties(vtte PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(QtProject)
+    qt_finalize_executable(vtte)
 endif()
