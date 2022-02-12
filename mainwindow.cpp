@@ -1,6 +1,8 @@
 #include <mainwindow.h>
+#include <iostream>
 #include <file.h>
 #include <ctype.h>
+#include <core/keybind.h>
 
 #include <QPainterPath>
 #include <QPainter>
@@ -60,26 +62,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 
     bool overwriteCursorSave = false;
 
-    if (event->modifiers() & Qt::ControlModifier){
-        QString KeyString = QKeySequence(event->key()).toString();
+    /*
+     *  If a modifier is being pressed, search though the
+     *  key binds. Once there is one which matches the key and
+     *  modifier, call it's assigned action passing the editor
+     *  class as an argument.
+     */
+    if (event->modifiers() != 0){
+        for (int i = 0; i < KeyBinds.size(); i++){
+            if (KeyBinds[i].modifiers == event->modifiers() &&
+                KeyBinds[i].key == QKeySequence(event->key()).toString().toStdString()){
 
-        if (KeyString == "S"){
-            SaveFileBuffer(editor, editor->files[editor->fi].filename);
-
-        } else if (KeyString == "O"){
-            std::string filename = QFileDialog::getOpenFileName(this, tr("Open source file"), "", tr("All Files (*)")).toStdString();
-            LoadFileNewBuffer(editor, filename);
-            SwitchFileBuffer(editor, editor->files.size() - 1);
-
-        } else if (KeyString == "."){
-            SwitchFileBuffer(editor, editor->fi + 1);
-
-        } else if (KeyString == ','){
-            SwitchFileBuffer(editor, editor->fi - 1);
+                KeyBinds[i].function(editor);
+                editor->repaint();
+                return;
+            }
         }
-
-        editor->repaint();
-        return;
     }
 
     switch(event->key()){

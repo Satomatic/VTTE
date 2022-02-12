@@ -40,6 +40,12 @@ set(PROJECT_SOURCES
         include/global.h
         file.cpp
         include/file.h
+
+        core/keybind.cpp
+        include/core/keybind.h
+
+        core/core.cpp
+        include/core/core.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
