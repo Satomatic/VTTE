@@ -34,9 +34,9 @@ void LoadFileNewBuffer(MainEditor *editor, std::string filename){
 }
 
 void SwitchFileBuffer(MainEditor* editor, int index){
-    if (editor->fi == 0){
+    if (index < 0){
         index = editor->files.size() - 1;
-    } else if (editor->fi == editor->files.size() - 1){
+    } else if (index > editor->files.size() - 1){
         index = 0;
     }
 
