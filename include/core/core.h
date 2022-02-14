@@ -3,6 +3,7 @@
 
 #include <global.h>
 
+void ActionNewFile(MainEditor *editor);
 void ActionOpenFile(MainEditor *editor);
 void ActionSaveFile(MainEditor *editor);
 void ActionSwitchNext(MainEditor *editor);

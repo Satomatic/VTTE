@@ -48,6 +48,20 @@ MainEditor::~MainEditor()
 
 }
 
+void MainEditor::updateTitle(){
+    std::string filepath = files[fi].filename;
+    std::string shortFilename = filepath.substr(filepath.find_last_of("/\\") + 1);
+
+    std::string titleTemplate = "Very tiny text editor :: %X%N (%Y/%Z)";
+
+    titleTemplate.replace(titleTemplate.find("%N"), 2, files[fi].edited == true ? "*" : "");
+    titleTemplate.replace(titleTemplate.find("%X"), 2, shortFilename);
+    titleTemplate.replace(titleTemplate.find("%Y"), 2, std::to_string(fi + 1));
+    titleTemplate.replace(titleTemplate.find("%Z"), 2, std::to_string(files.size()));
+
+    parent->setWindowTitle(QString::fromStdString(titleTemplate));
+}
+
 void MainEditor::paintEvent(QPaintEvent *e){
     QWidget::paintEvent(e);
 

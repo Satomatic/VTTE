@@ -14,6 +14,7 @@ void CreateKeyBind(std::string key, int modifiers, callback function){
 }
 
 void InitKeybinds(){
+    CreateKeyBind("N", CTRL, ActionNewFile);
     CreateKeyBind("O", CTRL, ActionOpenFile);
     CreateKeyBind("S", CTRL, ActionSaveFile);
     CreateKeyBind(",", CTRL, ActionSwitchPrev);

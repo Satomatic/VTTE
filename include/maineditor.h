@@ -15,6 +15,7 @@ struct File{
     int savedCursorS;
     int savedScroll;
     bool newfile;
+    bool edited;
 };
 
 class MainEditor : public QWidget
@@ -25,6 +26,7 @@ public:
     MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
     void paintEvent(QPaintEvent *e);
+    void updateTitle();
     std::vector <std::vector<std::pair<std::string, QColor>>> SyntaxData;
     std::vector <std::string> FileData;
     QWidget *parent;

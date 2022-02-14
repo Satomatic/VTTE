@@ -1,5 +1,6 @@
 #include <file.h>
 #include <maineditor.h>
+#include <mainwindow.h>
 #include <fstream>
 
 void LoadFileNewBuffer(MainEditor *editor, std::string filename){
@@ -13,6 +14,7 @@ void LoadFileNewBuffer(MainEditor *editor, std::string filename){
     newfile.savedCursorY = 0;
     newfile.savedScroll = 0;
     newfile.newfile = false;
+    newfile.edited = false;
 
     while (getline(file, cline)){
         std::string convert = "";
@@ -55,13 +57,9 @@ void SwitchFileBuffer(MainEditor* editor, int index){
     editor->cursorx = editor->files[index].savedCursorX;
     editor->cursory = editor->files[index].savedCursorY;
     editor->scroll = editor->files[index].savedScroll;
-
-    std::string filepath = editor->files[index].filename;
-    std::string shortFilename = filepath.substr(filepath.find_last_of("/\\") + 1);
-
-    // TODO: Please for the love of god make a system to template this
-    editor->parent->setWindowTitle(QString::fromStdString("Very tiny text editor :: " + shortFilename + " (" + std::to_string(index + 1) + "/" + std::to_string(editor->files.size()) + ")"));
     editor->fi = index;
+
+    editor->updateTitle();
 }
 
 void SaveFileBuffer(MainEditor *editor, std::string filename){
@@ -84,4 +82,7 @@ void SaveFileBuffer(MainEditor *editor, std::string filename){
     }
 
     file.close();
+
+    editor->files[editor->fi].edited = false;
+    editor->updateTitle();
 }

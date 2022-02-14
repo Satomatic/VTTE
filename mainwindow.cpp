@@ -171,6 +171,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 editor->cursory --;
                 editor->cursorx = previousLine.size();
             }
+
             overwriteCursorSave = true;
             break;
 
@@ -230,6 +231,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
      */
     if (overwriteCursorSave){
         editor->cursors = editor->cursorx;
+        editor->files[editor->fi].edited = true;
+        editor->updateTitle();
     }
 
     int cy = editor->fontHeight * (editor->cursory + 1) - 1 + (editor->linespace * editor->cursory) + editor->scroll;
