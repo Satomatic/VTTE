@@ -207,6 +207,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 
         default:
             /*
+             *  This will stop the editor from thinking pressing a
+             *  modifier should class the file as edited.
+             */
+            if (event->text().toStdString().size() == 0) return;
+
+            /*
              *  Make sure the cursor is actually in the bounds of the
              *  line.
              */

@@ -38,6 +38,11 @@ void ActionOpenFile(MainEditor *editor){
 }
 
 void ActionSaveFile(MainEditor *editor){
+    if (editor->files[editor->fi].newfile){
+        std::string filename = QFileDialog::getSaveFileName(editor->parent, editor->tr("Save as"), "", editor->tr("All Files (*)")).toStdString();
+        editor->files[editor->fi].filename = filename;
+        editor->files[editor->fi].newfile = false;
+    }
     SaveFileBuffer(editor, editor->files[editor->fi].filename);
 }
 

@@ -12,7 +12,7 @@ std::vector <std::vector <std::string>> KeywordData = {
 		"string", "bool", "int", "float", "void", "function", "char"
 	},
 	{
-		"extern", "import", "require", "include", "vector"
+        "extern", "import", "require", "include", "vector", "return"
 	},
 	{
 		"true", "false", "True", "False", "this"
@@ -45,6 +45,7 @@ lexer::lexer()
 
 /*
  *  TODO: Need to figure out a good system for multiline comments.
+ *  TODO: Add different syntax options depending on the language.
  */
 
 std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line){
