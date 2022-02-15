@@ -31,6 +31,8 @@ void ActionNewFile(MainEditor *editor){
 
 void ActionOpenFile(MainEditor *editor){
     std::string filename = QFileDialog::getOpenFileName(editor->parent, editor->tr("Open source file"), "", editor->tr("All Files (*)")).toStdString();
+    if (filename.size() == 0) return;
+
     LoadFileNewBuffer(editor, filename);
     SwitchFileBuffer(editor, editor->files.size() - 1);
 }

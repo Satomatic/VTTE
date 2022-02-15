@@ -23,7 +23,6 @@ MainWindow::~MainWindow()
 }
 
 /*
- *  TODO: Make a better system for keybinds.
  *  TODO: Make scrolling a little nicer.
  *  TODO: Clicking to control the cursor position.
  */
@@ -80,6 +79,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
         }
     }
 
+    /*
+     *  TODO: I feel I could make this system much better but
+     *        it works for now.
+     */
     switch(event->key()){
         case Qt::Key_Right:
             if (editor->cursorx < editor->files[editor->fi].FileData[editor->cursory].size()){
