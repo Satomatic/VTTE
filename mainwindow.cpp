@@ -85,6 +85,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
      */
     switch(event->key()){
         case Qt::Key_Right:
+            /*
+             *  Jump by 4 if the next 4 characters are spaces, ideally
+             *  this would change depending on the indentation settings.
+             */
+            if (editor->files[editor->fi].FileData[editor->cursory].size() + editor->cursorx >= 4 &&
+                editor->files[editor->fi].FileData[editor->cursory].substr(editor->cursorx, 4) == "    "
+            ){
+                editor->cursorx += 4;
+                editor->cursors += 4;
+                break;
+            }
+
             if (editor->cursorx < editor->files[editor->fi].FileData[editor->cursory].size()){
                 editor->cursorx ++;
                 editor->cursors ++;
@@ -92,6 +104,17 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         case Qt::Key_Left:
+            /*
+             *  Jump by 4 if the previous 4 characters are spaces.
+             */
+            if (editor->cursorx >= 4 &&
+                editor->files[editor->fi].FileData[editor->cursory].substr(editor->cursorx - 4, 4) == "    "
+            ){
+                editor->cursorx -= 4;
+                editor->cursors -= 4;
+                break;
+            }
+
             if (editor->cursorx > 0){
                 editor->cursorx --;
                 editor->cursors --;
