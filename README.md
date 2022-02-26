@@ -13,8 +13,9 @@ The end goal is quite simple. I want VTTE to be a feature complete editor while 
 
 ## Build
 ### Dependencies
-QT5+ (Currently developed with 6.2.3)
-You may need to use the QT devkit from https://www.qt.io/download-qt-installer
+- QT5+ (Currently developed with 6.2.3)
+  You may need to use the QT devkit from https://www.qt.io/download-qt-installer
+- You will need to install Graph 35+ pix font (copy in root of project)
 
 ### Building
 ```bash
