@@ -19,7 +19,7 @@ MainEditor::MainEditor(QWidget *parent) : QWidget(parent)
     this->scroll = 0;
 
     this->fontName = "Graph 35+ pix";  // Fontname, this should be a setting at some point
-    this->fontSize = 6;                // Pretty simple, this is the font size
+    this->fontSize = DF_FONT_SIZE;     // Pretty simple, this is the font size
     QFont font(this->fontName.c_str(), this->fontSize);
     QFontMetrics fm(font);
     this->fontHeight = fm.height();    // Keep a copy so we don't have to keep recalculating
@@ -81,7 +81,7 @@ void MainEditor::paintEvent(QPaintEvent *e){
         for (int x = 0; x < files[fi].SyntaxData[y].size(); x++){
             painter.setPen(files[fi].SyntaxData[y][x].second);
             painter.drawText(10 + dx, 20 + dy + (linespace * y), files[fi].SyntaxData[y][x].first.c_str());
-            dx += fm.width(files[fi].SyntaxData[y][x].first.c_str());
+            dx += fm.horizontalAdvance(files[fi].SyntaxData[y][x].first.c_str());
         }
 
         dx = 0;
@@ -91,7 +91,7 @@ void MainEditor::paintEvent(QPaintEvent *e){
     /*
      *  Draw cursor
      */
-    int cx = fm.width(files[fi].FileData[cursory].substr(0, cursorx).c_str());
+    int cx = fm.horizontalAdvance(files[fi].FileData[cursory].substr(0, cursorx).c_str());
     int cy = fontHeight * (cursory + 1) - 1 + (linespace * cursory) + scroll;
 
     painter.setPen(Qt::white);

@@ -6,6 +6,12 @@
 #include <vector>
 #include <string>
 
+#if __APPLE__
+  #define DF_FONT_SIZE 8
+#else
+  #define DF_FONT_SIZE 8
+#endif
+
 struct File{
     std::string filename;
     std::vector <std::string> FileData;
