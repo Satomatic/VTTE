@@ -5,6 +5,16 @@
 
 VTTE is a minimal and distraction free text editor with a tiny font (hence the name) built using QT. While it started as somewhat of a joke I've come to appreciate it and am now developing it into a more feature complete editor.
 
+#### Todo
+- [ ] Mouse clicking to relocate cursor
+- [ ] Fine / Fine and replace
+- [ ] Better lexer support for different languages
+- [ ] Prebuilt releases
+- [ ] Multiple horizontal / vertical editors
+- [ ] Horizontal scrolling with arrows
+- [ ] Clean up old code
+- [ ] Color schemes
+
 #### Why QT?
 While there are less bloated libraries I could have used, QT is no doubt the easiest GUI library for C++ and has everything I need to do what I want. Many libraries either don't give enough control or are simply too complex to quickly make an editor. QT acts as a nice middle ground and thats why it's being used.
 
