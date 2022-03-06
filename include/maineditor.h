@@ -6,10 +6,14 @@
 #include <vector>
 #include <string>
 
+/**
+ *  For some reason the font rendering is fine on Linux / Windows,
+ *  but on MacOS the font size is much smaller
+ */
 #if __APPLE__
   #define DF_FONT_SIZE 8
 #else
-  #define DF_FONT_SIZE 8
+  #define DF_FONT_SIZE 6
 #endif
 
 struct File{
