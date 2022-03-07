@@ -6,13 +6,13 @@
 
 std::vector <std::vector <std::string>> KeywordData = {
 	{
-        "if", "else", "elif", "for", "each", "while", "endif", "end"
+		"if", "else", "elif", "for", "each", "while", "endif", "end"
 	},
 	{
 		"string", "bool", "int", "float", "void", "function", "char"
 	},
 	{
-        "extern", "import", "require", "include", "vector", "return"
+		"extern", "import", "require", "include", "vector", "return"
 	},
 	{
 		"true", "false", "True", "False", "this"
@@ -21,7 +21,7 @@ std::vector <std::vector <std::string>> KeywordData = {
 
 std::vector <std::pair <char, char>> EscapeCharacters = {
 	std::make_pair('"', '"'),
-    std::make_pair('<', '>')
+	std::make_pair('<', '>')
 };
 
 std::vector <QColor> EscapeColors{
@@ -64,31 +64,31 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 	for (int i = 0; i < line.size(); i++){
 		foundword = false;
 
-        /**
-         *  I'm kinda mixed on this, not too sure if I completely
-         *  like the way it looks or not.
-         */
-        if (i > 2){
-            if (line[i - 1] == '.' || line.substr(i - 2, 2) == "->"){
-                SyntaxData.push_back(std::make_pair(CurrentWord, QColor(255,255,255)));
-                CurrentWord = "";
+		/**
+		 *  I'm kinda mixed on this, not too sure if I completely
+		 *  like the way it looks or not.
+		 */
+		if (i > 2 && !escaped){
+			if (line[i - 1] == '.' || line.substr(i - 2, 2) == "->"){
+				SyntaxData.push_back(std::make_pair(CurrentWord, QColor(255,255,255)));
+				CurrentWord = "";
 
-                int x;
-                for (x = i; x < line.size(); x++){
-                    if (!isalpha(line[x]) && line[x] != '_'){
-                        break;
-                    }
-                }
+				int x;
+				for (x = i; x < line.size(); x++){
+					if (!isalpha(line[x]) && line[x] != '_'){
+						break;
+					}
+				}
 
-                SyntaxData.push_back(std::make_pair(line.substr(i, x-i), ColorProfile[2]));
-                i = x;
-            }
-        }
+				SyntaxData.push_back(std::make_pair(line.substr(i, x-i), ColorProfile[2]));
+				i = x;
+			}
+		}
 
-        /**
-         *  An escape character is anything which contains
-         *  something. For example "this is escaped".
-         */
+		/**
+		 *  An escape character is anything which contains
+		 *  something. For example "this is escaped".
+		 */
 		if (!escaped){
 			for (int x = 0; x < EscapeCharacters.size() && !escaped; x++){
 				if (EscapeCharacters[x].first == line[i]){
@@ -120,10 +120,10 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 			continue;
 		}
 
-        /**
-         *  Pretty simple system for dealing with single
-         *  line comments.
-         */
+		/**
+		 *  Pretty simple system for dealing with single
+		 *  line comments.
+		 */
 		if (i + 2 <= line.size() && line.substr(i, 2) == "//"){
 			std::string after = line.substr(i, line.size() - i);
 			SyntaxData.push_back(std::make_pair(CurrentWord, QColor(255, 255, 255)));
@@ -137,7 +137,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 				bool nexCharCheck = false;
 				std::string keyword = KeywordData[y][x];
 
-                /**
+				/**
 				 *  We need to check the previous and next characters
 				 *  so we dont highlight a word in the middle of some
 				 *  other word.
@@ -152,7 +152,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 						continue;
 					}
 
-                    /**
+					/**
 					 *  Push the CurrentWord value into SyntaxData as
 					 *  regular coloured text.
 					 */
@@ -164,7 +164,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 						CurrentWord = "";
 					}
 
-                    /**
+					/**
 					 *  Push the keyword into SyntaxData in a pair with
 					 *  the corresponding colour.
 					 */
@@ -182,7 +182,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 			}
 		}
 
-        /**
+		/**
 		 *  If no word was found just push the current character into
 		 *  CurrentWord.
 		 */
@@ -191,7 +191,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 		}
 	}
 
-    /**
+	/**
 	 *  If any characters remain inside CurrentWord we can just push
 	 *  as regular text.
 	 */
