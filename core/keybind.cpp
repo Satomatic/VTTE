@@ -5,18 +5,19 @@
 std::vector <KeyBind> KeyBinds;
 
 void CreateKeyBind(std::string key, int modifiers, callback function){
-    KeyBind keybind;
-    keybind.key = key;
-    keybind.modifiers = modifiers;
-    keybind.function = function;
+	KeyBind keybind;
+	keybind.key = key;
+	keybind.modifiers = modifiers;
+	keybind.function = function;
 
-    KeyBinds.push_back(keybind);
+	KeyBinds.push_back(keybind);
 }
 
 void InitKeybinds(){
-    CreateKeyBind("N", CTRL, ActionNewFile);
-    CreateKeyBind("O", CTRL, ActionOpenFile);
-    CreateKeyBind("S", CTRL, ActionSaveFile);
-    CreateKeyBind(",", CTRL, ActionSwitchPrev);
-    CreateKeyBind(".", CTRL, ActionSwitchNext);
+	CreateKeyBind("N", CTRL, ActionNewFile);
+	CreateKeyBind("O", CTRL, ActionOpenFile);
+	CreateKeyBind("S", CTRL, ActionSaveFile);
+	CreateKeyBind("X", CTRL, ActionCloseFile);
+	CreateKeyBind(",", CTRL, ActionSwitchPrev);
+	CreateKeyBind(".", CTRL, ActionSwitchNext);
 }
