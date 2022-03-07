@@ -6,7 +6,7 @@
 VTTE is a minimal and distraction free text editor with a tiny font (hence the name) built using QT. While it started as somewhat of a joke I've come to appreciate it and am now developing it into a more feature complete editor.
 
 #### Todo
-- [ ] Mouse clicking to relocate cursor
+- [x] Mouse clicking to relocate cursor
 - [ ] Fine / Fine and replace
 - [ ] Better lexer support for different languages
 - [ ] Prebuilt releases
