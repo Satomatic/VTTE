@@ -54,6 +54,10 @@ void MainWindow::wheelEvent(QWheelEvent *event){
     }
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *event){
+    this->editor->mouseClickUpdate(event);
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event){
     std::string currentline = editor->files[editor->fi].FileData[editor->cursory];
     std::string before = currentline.substr(0, editor->cursorx);

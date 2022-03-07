@@ -48,6 +48,29 @@ MainEditor::~MainEditor()
 
 }
 
+void MainEditor::mouseClickUpdate(QMouseEvent *e){
+    int ry = e->pos().ry();
+    int rx = e->pos().rx();
+
+    for (int i = mouseCursorLookup.size() - 1; i > 0; i--){
+        if (ry >= mouseCursorLookup[i].drawY){
+            QFont font(this->fontName.c_str(), this->fontSize);
+            QFontMetrics fm(font);
+
+            int singleWidth = fm.horizontalAdvance("A");
+            int cursorPosDiv = (rx - 20) / singleWidth;
+            cursorPosDiv = floor(cursorPosDiv);
+
+            if (rx < 20) cursorPosDiv = 0;
+
+            this->cursory = mouseCursorLookup[i].cursorY;
+            this->cursorx = cursorPosDiv;
+            this->repaint();
+            break;
+        }
+    }
+}
+
 void MainEditor::updateTitle(){
     std::string filepath = files[fi].filename;
     std::string shortFilename = filepath.substr(filepath.find_last_of("/\\") + 1);
@@ -65,6 +88,8 @@ void MainEditor::updateTitle(){
 void MainEditor::paintEvent(QPaintEvent *e){
     QWidget::paintEvent(e);
 
+    this->mouseCursorLookup.clear();
+
     QPainter painter(this);
     QFont font(this->fontName.c_str(), this->fontSize);
     QFontMetrics fm(font);
@@ -81,6 +106,12 @@ void MainEditor::paintEvent(QPaintEvent *e){
         for (int x = 0; x < files[fi].SyntaxData[y].size(); x++){
             painter.setPen(files[fi].SyntaxData[y][x].second);
             painter.drawText(10 + dx, 20 + dy + (linespace * y), files[fi].SyntaxData[y][x].first.c_str());
+
+            MouseLookupItem item;
+            item.drawY = (20 + dy + (linespace * y));
+            item.cursorY = y;
+            mouseCursorLookup.push_back(item);
+
             dx += fm.horizontalAdvance(files[fi].SyntaxData[y][x].first.c_str());
         }
 
