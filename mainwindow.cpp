@@ -22,11 +22,6 @@ MainWindow::~MainWindow()
 
 }
 
-/*
- *  TODO: Make scrolling a little nicer.
- *  TODO: Clicking to control the cursor position.
- */
-
 void MainWindow::paintEvent(QPaintEvent *e){
     QWidget::paintEvent(e);
     QPainter painter(this);
@@ -65,7 +60,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 
     bool overwriteCursorSave = false;
 
-    /*
+    /**
      *  If a modifier is being pressed, search though the
      *  key binds. Once there is one which matches the key and
      *  modifier, call it's assigned action passing the editor
@@ -83,13 +78,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
         }
     }
 
-    /*
-     *  TODO: I feel I could make this system much better but
+    /**
+     *  @todo I feel I could make this system much better but
      *        it works for now.
      */
     switch(event->key()){
         case Qt::Key_Right:
-            /*
+            /**
              *  Jump by 4 if the next 4 characters are spaces, ideally
              *  this would change depending on the indentation settings.
              */
@@ -108,7 +103,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         case Qt::Key_Left:
-            /*
+            /**
              *  Jump by 4 if the previous 4 characters are spaces.
              */
             if (editor->cursorx >= 4 &&
@@ -129,7 +124,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             if (editor->cursory > 0){
                 editor->cursorx = editor->cursors;
 
-                /*
+                /**
                  *  Check if the previous lines shorter than the curX
                  *  and adjust if needed.
                  */
@@ -142,14 +137,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         case Qt::Key_Down:
-            /*
+            /**
              *  If cursor position Y is less than the file size, then
              *  we are allowed to move the cursor down.
              */
             if (editor->cursory < editor->files[editor->fi].FileData.size() - 1){
                 editor->cursorx = editor->cursors;
 
-                /*
+                /**
                  *  If the line we are moving to is smaller than curX
                  *  we should alter the curX to prevent faults.
                  */
@@ -162,7 +157,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         case Qt::Key_Tab:
-            /*
+            /**
              *  Ideally the user should be able to set the tab length
              *  but for now just inserting 4 will do nicely.
              */
@@ -183,7 +178,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 editor->cursorx --;
 
             } else if (editor->cursorx == 0 && editor->cursory > 0){
-                /*
+                /**
                  *  Concatenate the previous and current line then we
                  *  move that new line to be the new previous line.
                  */
@@ -191,7 +186,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 editor->files[editor->fi].FileData[editor->cursory - 1] = previousLine + currentline;
                 editor->files[editor->fi].SyntaxData[editor->cursory - 1] = editor->lexerClass.SyntaxLine(previousLine + currentline);
 
-                /*
+                /**
                  *  Erase the current line from both the FileData and
                  *  the SyntaxData.
                  */
@@ -206,7 +201,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         case Qt::Key_Return:
-            /*
+            /**
              *  If cursor is at the end of the current line, insert a
              *  new line below.
              */
@@ -215,7 +210,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 editor->files[editor->fi].FileData.insert(editor->files[editor->fi].FileData.begin() + editor->cursory + 1, "");
                 editor->files[editor->fi].SyntaxData.insert(editor->files[editor->fi].SyntaxData.begin() + editor->cursory + 1, temp);
 
-            /*
+            /**
              *  Otherwise we can just split the line, set the current
              *  line to be whatever is before the cursor, and set the
              *  next line to be whatever is after.
@@ -233,20 +228,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
 
         default:
-            /*
+            /**
              *  This will stop the editor from thinking pressing a
              *  modifier should class the file as edited.
              */
             if (event->text().toStdString().size() == 0) return;
 
-            /*
+            /**
              *  Make sure the cursor is actually in the bounds of the
              *  line.
              */
             if (editor->cursorx <= editor->files[editor->fi].FileData[editor->cursory].size()){
                 char character = event->text().toStdString()[0];
 
-                /*
+                /**
                  *  Then make sure the character typed isn't special.
                  */
                 if (isalnum(character) || ispunct(character) || isspace(character)){
@@ -261,7 +256,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             break;
     }
 
-    /*
+    /**
      *  If the user has made an input which will change the file, the
      *  cursors saved value should be updated.
      */

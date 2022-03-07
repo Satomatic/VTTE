@@ -6,7 +6,7 @@
 
 std::vector <std::vector <std::string>> KeywordData = {
 	{
-		"if", "else", "elif", "for", "each", "while", "endif", "end"
+        "if", "else", "elif", "for", "each", "while", "endif", "end"
 	},
 	{
 		"string", "bool", "int", "float", "void", "function", "char"
@@ -43,9 +43,9 @@ lexer::lexer()
 
 }
 
-/*
- *  TODO: Need to figure out a good system for multiline comments.
- *  TODO: Add different syntax options depending on the language.
+/**
+ *  @todo Need to figure out a good system for multiline comments.
+ *  @todo Add different syntax options depending on the language.
  */
 
 std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line){
@@ -64,7 +64,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 	for (int i = 0; i < line.size(); i++){
 		foundword = false;
 
-        /*
+        /**
          *  I'm kinda mixed on this, not too sure if I completely
          *  like the way it looks or not.
          */
@@ -85,7 +85,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
             }
         }
 
-        /*
+        /**
          *  An escape character is anything which contains
          *  something. For example "this is escaped".
          */
@@ -120,7 +120,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 			continue;
 		}
 
-        /*
+        /**
          *  Pretty simple system for dealing with single
          *  line comments.
          */
@@ -137,7 +137,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 				bool nexCharCheck = false;
 				std::string keyword = KeywordData[y][x];
 
-				/*
+                /**
 				 *  We need to check the previous and next characters
 				 *  so we dont highlight a word in the middle of some
 				 *  other word.
@@ -152,7 +152,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 						continue;
 					}
 
-					/*
+                    /**
 					 *  Push the CurrentWord value into SyntaxData as
 					 *  regular coloured text.
 					 */
@@ -164,7 +164,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 						CurrentWord = "";
 					}
 
-					/*
+                    /**
 					 *  Push the keyword into SyntaxData in a pair with
 					 *  the corresponding colour.
 					 */
@@ -182,7 +182,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 			}
 		}
 
-		/*
+        /**
 		 *  If no word was found just push the current character into
 		 *  CurrentWord.
 		 */
@@ -191,7 +191,7 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 		}
 	}
 
-	/*
+    /**
 	 *  If any characters remain inside CurrentWord we can just push
 	 *  as regular text.
 	 */

@@ -26,7 +26,7 @@ void LoadFileNewBuffer(MainEditor *editor, std::string filename){
             }
         }
 
-        // NOTE: Generating the lexer data is really slow on larger files
+        // @note Generating the lexer data is really slow on larger files
         newfile.FileData.push_back(convert);
         newfile.SyntaxData.push_back(editor->lexerClass.SyntaxLine(convert));
     }
@@ -42,7 +42,7 @@ void SwitchFileBuffer(MainEditor* editor, int index){
         index = 0;
     }
 
-    /*
+    /**
      *  Save current editor values
      */
     editor->files[editor->fi].savedCursorS = editor->cursors;
@@ -50,7 +50,7 @@ void SwitchFileBuffer(MainEditor* editor, int index){
     editor->files[editor->fi].savedCursorY = editor->cursory;
     editor->files[editor->fi].savedScroll = editor->scroll;
 
-    /*
+    /**
      *  Load new values from file buffer
      */
     editor->cursors = editor->files[index].savedCursorS;

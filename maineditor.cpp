@@ -95,7 +95,7 @@ void MainEditor::paintEvent(QPaintEvent *e){
     QFontMetrics fm(font);
     painter.setFont(font);
 
-    /*
+    /**
      *  Draw the main text, all nice and colored too!
      */
     int dx = 0;
@@ -119,7 +119,7 @@ void MainEditor::paintEvent(QPaintEvent *e){
         dy += fm.height();
     }
 
-    /*
+    /**
      *  Draw cursor
      */
     int cx = fm.horizontalAdvance(files[fi].FileData[cursory].substr(0, cursorx).c_str());
