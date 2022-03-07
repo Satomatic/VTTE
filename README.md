@@ -7,7 +7,7 @@ VTTE is a minimal and distraction free text editor with a tiny font (hence the n
 
 #### Todo
 - [x] Mouse clicking to relocate cursor
-- [ ] Fine / Fine and replace
+- [ ] Find / Find and replace
 - [ ] Better lexer support for different languages
 - [ ] Prebuilt releases
 - [ ] Multiple horizontal / vertical editors
