@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <vector>
 #include <string>
+#include <math.h>
 
 /**
  *  For some reason the font rendering is fine on Linux / Windows,

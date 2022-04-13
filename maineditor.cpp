@@ -57,21 +57,37 @@ void MainEditor::mouseClickUpdate(QMouseEvent *e){
 			QFont font(this->fontName.c_str(), this->fontSize);
 			QFontMetrics fm(font);
 
+			/**
+			 *  Take the relative X of the coords and devide it by the size
+			 *  of a single character to get where the cursor should be on the 
+			 *  X axis.
+			 *
+			 *  @note floor / ceil can make this somewhat inaccurate so I will
+			 *        have to work on that at some point.
+			 */
 			int singleWidth = fm.horizontalAdvance("A");
 			int cursorPosDiv = (rx - 20) / singleWidth;
 			cursorPosDiv = floor(cursorPosDiv);
 
+			/**
+			 *  If the cursor X is less than the actual text then just set it to
+			 *  0, this will pretect again seg faults and compensate for the 
+			 *  inaccuracy.
+			 */
 			if (rx < 20) cursorPosDiv = 0;
 
 			this->cursory = mouseCursorLookup[i].cursorY;
 			this->cursorx = cursorPosDiv;
 
-			if (rx > singleWidth * files[fi].FileData[cursory].size()){
+			/**
+			 *  If the relative X is further than the size of the current line
+			 *  just set the cursor to be at the size of the line.
+			 */
+			if (rx - 20 > singleWidth * files[fi].FileData[cursory].size()){
 				this->cursorx = files[fi].FileData[cursory].size();
 			}
 
 			this->cursors = this->cursorx;
-
 			this->repaint();
 			break;
 		}

@@ -199,5 +199,13 @@ std::vector <std::pair <std::string, QColor>> lexer::SyntaxLine(std::string line
 		SyntaxData.push_back(std::make_pair(CurrentWord, QColor(255, 255, 255)));
 	}
 
+	/**
+	 *  If the syntax data is empty it will cause a few issues, mainly 
+	 *  with the mouse calculations, so make sure it never sends empty.
+	 */
+	if (SyntaxData.size() == 0){
+		SyntaxData.push_back(std::make_pair("", QColor(255, 255, 255)));
+	}
+
 	return SyntaxData;
 }
